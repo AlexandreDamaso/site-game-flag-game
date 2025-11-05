@@ -1,8 +1,10 @@
 import React from 'react'
 
-function Flag() {
+function Flag(flagUrl) {
    return (
-      <div>Flag</div>
+      <div>
+         {/* {flagUrl && <img src={flagUrl} alt="Bandeira de um País" className='flag' />} */}
+      </div>
    )
 }
 
