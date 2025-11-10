@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Flag from './Flag'
+import './Game.css'
 
 function Game() {
    const [flags, setFlags] = useState({});
@@ -40,7 +41,8 @@ function Game() {
       const correctIndex = Math.floor(Math.random() * selectedCodes.length);
       const correctCode = selectedCodes[correctIndex];
       setCorrectFlag(flags[correctCode]);
-      setFlagUrl('https://flagcdn.com/16x12/'+correctCode+'.png');
+      setFlagUrl('https://flagcdn.com/256x192/'+correctCode+'.png');
+      // setFlagUrl('https://flagcdn.com/16x12/am.png');
       setOptions(selectedCodes.map(code => flags[code]));
       setMessage('');
       setAnswered(false);
@@ -65,14 +67,16 @@ function Game() {
       <div className='game-container'>
          <h1 className='game-title'>De onde é essa bandeira?</h1>
          <div className="score-container">
-            <p className="score-correct">Acertos: {correctCount}</p>
-            <p className={message == 'Acertou' ? 'score correct' : message == 'Errou' ? 'score wrong' : ''}>{message}</p>
-            <p className="score-wrong">Erros: {incorrectCount}</p>
+            <p className="score correct">Acertos: {correctCount}</p>
+            <p className={message == 'Acertou!' ? 'score correct' : message == 'Errou!' ? 'score wrong' : ''}>{message}</p>
+            <p className="score wrong">Erros: {incorrectCount}</p>
          </div>
-         {flagUrl ? <Flag flagUrl={flagUrl} /> : 'Carregando...'}
+         <div className="flag">
+            {flagUrl ? <img src={flagUrl} alt="" />  : 'Carregando...'}
+         </div>
          <div className="options-container">
             {options.map((flag, index) => (
-               <button onClick={() => handleOptionClick(flag)} className={answered && flag === correctFlag ? 'option-button correct-option' : 'option-button'} key={index}>
+               <button onClick={() => handleOptionClick(flag)} className={answered && flag === correctFlag ? 'option-button correct-option' : 'option-button'} key={index} disabled={answered}>
                   {index + 1}) {flag}
                </button>
             ))}
